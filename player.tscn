@@ -28,7 +28,11 @@ corner_radius_bottom_left = 8
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw7xd"]
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+=======
+bg_color = Color(0.717647, 0.0784314, 0.105882, 1)
+>>>>>>> main
 =======
 bg_color = Color(0.717647, 0.0784314, 0.105882, 1)
 >>>>>>> main
@@ -94,7 +98,11 @@ unique_name_in_owner = true
 offset_left = -174.0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 offset_top = -190.0
+=======
+offset_top = -191.0
+>>>>>>> main
 =======
 offset_top = -191.0
 >>>>>>> main

@@ -9,7 +9,11 @@ size = Vector2(211.003, 216.908)
 [node name="Enemy_testSquare" type="CharacterBody2D"]
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 scale = Vector2(0.1, 0.0823625)
+=======
+scale = Vector2(0.1, 0.092)
+>>>>>>> main
 =======
 scale = Vector2(0.1, 0.092)
 >>>>>>> main
