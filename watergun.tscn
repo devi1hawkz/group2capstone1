@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://crlvherxqfwwx"]
+
+[ext_resource type="Texture2D" uid="uid://kic2hqy0jyre" path="res://Textures/gun.png" id="1_maxy8"]
+[ext_resource type="Script" path="res://watergun.gd" id="1_s74k1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ds804"]
+radius = 1500.0
+
+[node name="watergun" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_s74k1")
+
+[node name="shootTime" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(36, 2)
+shape = SubResource("CircleShape2D_ds804")
+
+[node name="pivot" type="Marker2D" parent="."]
+
+[node name="watergun" type="Sprite2D" parent="pivot"]
+position = Vector2(211, -11)
+scale = Vector2(0.423145, 0.427599)
+texture = ExtResource("1_maxy8")
+
+[node name="shootPoint" type="Marker2D" parent="pivot/watergun"]
+unique_name_in_owner = true
+position = Vector2(125.253, -11.6932)
+
+[connection signal="timeout" from="shootTime" to="." method="_on_shoot_time_timeout"]

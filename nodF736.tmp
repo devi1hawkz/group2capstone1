@@ -19,23 +19,16 @@ texture_repeat = 2
 scale = Vector2(1.76164, 1.13221)
 texture = ExtResource("1_uoe4f")
 region_enabled = true
-region_rect = Rect2(-3000, -3000, 3000, 3000)
+region_rect = Rect2(-3000, -3000, 500, 500)
 
 [node name="Player" parent="." instance=ExtResource("2_72iro")]
 scale = Vector2(0.1, 0.101)
 
-[node name="Path2D" type="Path2D" parent="Player"]
-position = Vector2(-60, -148.515)
-scale = Vector2(10, 9.90099)
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-6, -15)
 curve = SubResource("Curve2D_qpqxs")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 unique_name_in_owner = true
 position = Vector2(-444, -278)
 rotation = -0.00329307
-
-[node name="spawnTimer" type="Timer" parent="."]
-wait_time = 0.8
-autostart = true
-
-[connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]

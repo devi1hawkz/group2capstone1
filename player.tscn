@@ -1,0 +1,109 @@
+[gd_scene load_steps=10 format=3 uid="uid://1icwj582vuqw"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_xttrc"]
+[ext_resource type="Texture2D" uid="uid://c6nuwovanxknh" path="res://Textures/Player/blob.png" id="2_s2c5j"]
+[ext_resource type="PackedScene" uid="uid://crlvherxqfwwx" path="res://watergun.tscn" id="3_aumnu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc741"]
+size = Vector2(207.679, 218.053)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nmxtp"]
+custom_solver_bias = 0.365
+radius = 125.59
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndcp3"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p67br"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw7xd"]
+<<<<<<< HEAD
+<<<<<<< HEAD
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+=======
+bg_color = Color(0.717647, 0.0784314, 0.105882, 1)
+>>>>>>> main
+=======
+bg_color = Color(0.717647, 0.0784314, 0.105882, 1)
+>>>>>>> main
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vkoor"]
+bg_color = Color(0, 0.686275, 0.105882, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(1, 0.981341)
+motion_mode = 1
+platform_on_leave = 2
+platform_floor_layers = 0
+script = ExtResource("1_xttrc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s2c5j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-9, -4.07605)
+scale = Vector2(1.1446, 0.975931)
+shape = SubResource("RectangleShape2D_sc741")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="watergun" parent="." instance=ExtResource("3_aumnu")]
+position = Vector2(17, -1.01901)
+scale = Vector2(1.2774, 1.27024)
+
+[node name="playerHurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(1.44, 1)
+collision_mask = 4
+
+[node name="hurtboxShape" type="CollisionShape2D" parent="playerHurtbox"]
+visible = false
+shape = SubResource("CircleShape2D_nmxtp")
+
+[node name="healthbar2" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -178.0
+offset_top = -196.0
+offset_right = 174.0
+offset_bottom = -157.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ndcp3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_p67br")
+value = 100.0
+show_percentage = false
+
+[node name="healthbar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -174.0
+<<<<<<< HEAD
+<<<<<<< HEAD
+offset_top = -190.0
+=======
+offset_top = -191.0
+>>>>>>> main
+=======
+offset_top = -191.0
+>>>>>>> main
+offset_right = 170.0
+offset_bottom = -163.0
+theme_override_styles/background = SubResource("StyleBoxFlat_sw7xd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vkoor")
+value = 100.0
+show_percentage = false
