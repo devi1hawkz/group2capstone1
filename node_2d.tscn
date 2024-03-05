@@ -1,8 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://q2vyf4spyvlk"]
+[gd_scene load_steps=10 format=3 uid="uid://q2vyf4spyvlk"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_ru8mw"]
 [ext_resource type="Texture2D" uid="uid://3v7urx6f5bt6" path="res://Textures/Background/Pixel_art_grass_image.png" id="1_uoe4f"]
 [ext_resource type="PackedScene" uid="uid://1icwj582vuqw" path="res://player.tscn" id="2_72iro"]
+[ext_resource type="PackedScene" uid="uid://bmqpt46nq8pdg" path="res://pause_menu.tscn" id="2_fqk57"]
+[ext_resource type="Texture2D" uid="uid://cux7edcvpklky" path="res://Textures/exp_background.png" id="5_qm7bk"]
+[ext_resource type="Texture2D" uid="uid://bqabj00opjqo1" path="res://Textures/exp_progress.png" id="6_napbo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m1d06"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qxh7f"]
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_qpqxs"]
 _data = {
@@ -24,6 +33,103 @@ region_rect = Rect2(-3000, -3000, 3000, 3000)
 [node name="Player" parent="." instance=ExtResource("2_72iro")]
 scale = Vector2(0.1, 0.101)
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(10, -19.802)
+scale = Vector2(8.61, 8.52475)
+
+[node name="pause_menu" parent="Player/Camera2D" instance=ExtResource("2_fqk57")]
+unique_name_in_owner = true
+visible = false
+z_index = 100
+scale = Vector2(2.80235, 2.84701)
+
+[node name="QuizPanel" type="Panel" parent="Player/Camera2D"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+z_index = 90
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -125.0
+offset_right = 200.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.998624, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D/QuizPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Question_Name" type="Label" parent="Player/Camera2D/QuizPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -199.5
+offset_top = 15.0
+offset_right = 199.5
+offset_bottom = 38.0
+grow_horizontal = 2
+text = "Question"
+label_settings = SubResource("LabelSettings_m1d06")
+horizontal_alignment = 1
+
+[node name="ItemList" type="ItemList" parent="Player/Camera2D/QuizPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -66.0
+offset_right = 163.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CorrectAns" type="Label" parent="Player/Camera2D/QuizPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -129.985
+offset_top = -72.7352
+offset_right = 145.015
+offset_bottom = -49.7352
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_qxh7f")
+
+[node name="okButton" type="Button" parent="Player/Camera2D/QuizPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.5
+offset_top = -26.0
+offset_right = 53.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "OK"
+
 [node name="Path2D" type="Path2D" parent="Player"]
 position = Vector2(-60, -148.515)
 scale = Vector2(10, 9.90099)
@@ -38,4 +144,29 @@ rotation = -0.00329307
 wait_time = 0.8
 autostart = true
 
+[node name="Gui" type="CanvasLayer" parent="."]
+
+[node name="expBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+z_index = 100
+offset_left = -2948.0
+offset_top = -1444.96
+offset_right = -1748.0
+offset_bottom = -1404.96
+scale = Vector2(5.13233, 8.12041)
+texture_under = ExtResource("5_qm7bk")
+texture_progress = ExtResource("6_napbo")
+
+[node name="Label" type="Label" parent="expBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 33.0
+scale = Vector2(0.9948, 0.603951)
+text = "Level "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="item_selected" from="Player/Camera2D/QuizPanel/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="Player/Camera2D/QuizPanel/okButton" to="." method="_on_ok_button_pressed"]
 [connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]

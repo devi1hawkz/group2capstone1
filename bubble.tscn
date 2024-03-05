@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bv1ndaiqeg21p"]
 
-[ext_resource type="Script" path="res://Bubble.gd" id="1_od2cv"]
+[ext_resource type="Script" path="res://bubble.gd" id="1_6q7lx"]
 [ext_resource type="Texture2D" uid="uid://bdm05bs54sgvt" path="res://Textures/bubb2.png" id="2_fvuet"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4vu3s"]
@@ -12,14 +12,18 @@ rotation = 1.08229
 scale = Vector2(0.77804, 0.77804)
 collision_layer = 0
 collision_mask = 5
-script = ExtResource("1_od2cv")
+script = ExtResource("1_6q7lx")
 
 [node name="Bubb2" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(-0.321425, 0.500008)
 scale = Vector2(0.406429, 0.410714)
 texture = ExtResource("2_fvuet")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="bubbleColl" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
 shape = SubResource("CircleShape2D_4vu3s")
+
+[node name="aimTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

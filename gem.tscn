@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4ex1y8888y73"]
+
+[ext_resource type="Script" path="res://gem.gd" id="1_hjnh2"]
+[ext_resource type="Texture2D" uid="uid://h15tiho06a7x" path="res://Textures/Gem.png" id="1_r0jjc"]
+[ext_resource type="AudioStream" uid="uid://bsgu5deepe5hl" path="res://Sounds/ding-101377.mp3" id="3_23wcs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hefbt"]
+size = Vector2(18, 37)
+
+[node name="exp-basic-gem" type="Area2D" groups=["loot"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_hjnh2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_r0jjc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_hefbt")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_23wcs")
+volume_db = -17.635
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

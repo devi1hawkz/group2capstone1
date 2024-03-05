@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://cugjukmvgxvin"]
+
+[ext_resource type="Script" path="res://credits.gd" id="1_8j21i"]
+[ext_resource type="Script" path="res://Button.gd" id="2_77n52"]
+
+[node name="credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8j21i")
+
+[node name="credit" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_right = 300.0
+offset_bottom = 24.0
+grow_horizontal = 2
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="frontend" type="Label" parent="."]
+layout_mode = 0
+offset_top = 53.0
+offset_right = 216.0
+offset_bottom = 76.0
+text = " Front End Web/Quiz Design
+"
+
+[node name="frontend2" type="Label" parent="."]
+layout_mode = 0
+offset_top = 76.0
+offset_right = 216.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 11
+text = "    • Abi Athmakuri"
+
+[node name="frontend3" type="Label" parent="."]
+layout_mode = 0
+offset_top = 91.0
+offset_right = 216.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 11
+text = "    • Kshitji Sharama"
+
+[node name="backend" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -36.0
+offset_right = -119.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = " Back End Game Design"
+
+[node name="backend2" type="Label" parent="."]
+layout_mode = 0
+offset_top = 137.0
+offset_right = 216.0
+offset_bottom = 160.0
+theme_override_font_sizes/font_size = 11
+text = "    • Alexander Ficken
+"
+
+[node name="backend3" type="Label" parent="."]
+layout_mode = 0
+offset_top = 153.0
+offset_right = 216.0
+offset_bottom = 176.0
+theme_override_font_sizes/font_size = 11
+text = "    • Alex Obermeyer"
+
+[node name="backend4" type="Label" parent="."]
+layout_mode = 0
+offset_top = 168.0
+offset_right = 216.0
+offset_bottom = 191.0
+theme_override_font_sizes/font_size = 11
+text = "    • Eduard Mochalin"
+
+[node name="graphicdesign" type="Label" parent="."]
+layout_mode = 0
+offset_top = 191.0
+offset_right = 181.0
+offset_bottom = 214.0
+theme_override_font_sizes/font_size = 15
+text = " Graphic Design
+"
+
+[node name="graphicdesign2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -86.0
+offset_right = -208.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+text = "    • Nathan Smith
+"
+
+[node name="back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -35.0
+offset_right = 66.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+script = ExtResource("2_77n52")
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

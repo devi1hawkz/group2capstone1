@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://crlvherxqfwwx"]
+[gd_scene load_steps=5 format=3 uid="uid://crlvherxqfwwx"]
 
 [ext_resource type="Texture2D" uid="uid://kic2hqy0jyre" path="res://Textures/gun.png" id="1_maxy8"]
 [ext_resource type="Script" path="res://watergun.gd" id="1_s74k1"]
+[ext_resource type="AudioStream" uid="uid://bwgbdubfmj3gq" path="res://Sounds/bubble-sound-43207.mp3" id="3_cd17q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ds804"]
 radius = 1500.0
 
 [node name="watergun" type="Area2D"]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_s74k1")
 
@@ -31,4 +32,9 @@ texture = ExtResource("1_maxy8")
 unique_name_in_owner = true
 position = Vector2(125.253, -11.6932)
 
+[node name="pop" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_cd17q")
+
 [connection signal="timeout" from="shootTime" to="." method="_on_shoot_time_timeout"]
+[connection signal="finished" from="pop" to="." method="_on_pop_finished"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq33245hlfmpn"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_8ccp5"]
+[ext_resource type="Texture2D" uid="uid://bbtmx08i8tvs2" path="res://UI/menu_assets/logo.png" id="2_2wxqp"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ccp5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+offset_right = 270.0
+offset_bottom = 40.0
+scale = Vector2(2.24, 8)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(300, 150)
+scale = Vector2(0.75, 0.5)
+texture = ExtResource("2_2wxqp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -141.0
+offset_right = 98.0
+offset_bottom = -5.0
+grow_vertical = 0
+scale = Vector2(1.00908, 0.992308)
+pivot_offset = Vector2(5, 0)
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="SelectQuiz" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select Quiz
+"
+
+[node name="Credits" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/SelectQuiz" to="." method="_on_select_quiz_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_select_quiz_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

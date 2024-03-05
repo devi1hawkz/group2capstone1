@@ -1,15 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://1icwj582vuqw"]
+[gd_scene load_steps=15 format=3 uid="uid://1icwj582vuqw"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_xttrc"]
-[ext_resource type="Texture2D" uid="uid://c6nuwovanxknh" path="res://Textures/Player/blob.png" id="2_s2c5j"]
+[ext_resource type="Texture2D" uid="uid://mn4rciw4mfxt" path="res://Textures/Player/sprite_sheet.png" id="2_qxqk2"]
 [ext_resource type="PackedScene" uid="uid://crlvherxqfwwx" path="res://watergun.tscn" id="3_aumnu"]
+[ext_resource type="Script" path="res://pickupRange.gd" id="4_h88jr"]
+[ext_resource type="Texture2D" uid="uid://cux7edcvpklky" path="res://Textures/exp_background.png" id="5_12i2a"]
+[ext_resource type="Texture2D" uid="uid://bqabj00opjqo1" path="res://Textures/exp_progress.png" id="6_lcpmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sc741"]
-size = Vector2(207.679, 218.053)
+size = Vector2(141.971, 298.626)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_nmxtp"]
-custom_solver_bias = 0.365
-radius = 125.59
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ieg40"]
+size = Vector2(126.389, 304.685)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jv7mw"]
+radius = 336.076
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hf4ig"]
+radius = 201.023
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndcp3"]
 bg_color = Color(0, 0, 0, 1)
@@ -26,19 +34,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sw7xd"]
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-bg_color = Color(0.211765, 0.211765, 0.211765, 1)
-=======
 bg_color = Color(0.717647, 0.0784314, 0.105882, 1)
->>>>>>> main
-=======
-bg_color = Color(0.717647, 0.0784314, 0.105882, 1)
->>>>>>> main
-=======
-bg_color = Color(0.717647, 0.0784314, 0.105882, 1)
->>>>>>> main
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -59,14 +55,14 @@ platform_floor_layers = 0
 script = ExtResource("1_xttrc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_s2c5j")
+scale = Vector2(9, 9)
+texture = ExtResource("2_qxqk2")
+hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-9, -4.07605)
+position = Vector2(-27, 11.2092)
 scale = Vector2(1.1446, 0.975931)
 shape = SubResource("RectangleShape2D_sc741")
-
-[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="watergun" parent="." instance=ExtResource("3_aumnu")]
 position = Vector2(17, -1.01901)
@@ -74,20 +70,35 @@ scale = Vector2(1.2774, 1.27024)
 
 [node name="playerHurtbox" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 scale = Vector2(1.44, 1)
 collision_mask = 4
 
 [node name="hurtboxShape" type="CollisionShape2D" parent="playerHurtbox"]
-visible = false
-shape = SubResource("CircleShape2D_nmxtp")
+position = Vector2(-19.4444, 10.6997)
+shape = SubResource("RectangleShape2D_ieg40")
+
+[node name="pickupRange" type="Area2D" parent="."]
+scale = Vector2(-2.19151, -2.20083)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_h88jr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickupRange"]
+shape = SubResource("CircleShape2D_jv7mw")
+
+[node name="collectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collectArea"]
+shape = SubResource("CircleShape2D_hf4ig")
 
 [node name="healthbar2" type="ProgressBar" parent="."]
 unique_name_in_owner = true
-offset_left = -178.0
-offset_top = -196.0
+offset_left = -185.0
+offset_top = -231.0
 offset_right = 174.0
-offset_bottom = -157.0
+offset_bottom = -192.0
 theme_override_styles/background = SubResource("StyleBoxFlat_ndcp3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_p67br")
 value = 100.0
@@ -95,23 +106,40 @@ show_percentage = false
 
 [node name="healthbar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
-offset_left = -174.0
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-offset_top = -190.0
-=======
-offset_top = -191.0
->>>>>>> main
-=======
-offset_top = -191.0
->>>>>>> main
-=======
-offset_top = -191.0
->>>>>>> main
+offset_left = -179.0
+offset_top = -225.0
 offset_right = 170.0
-offset_bottom = -163.0
+offset_bottom = -197.0
+size_flags_horizontal = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_sw7xd")
 theme_override_styles/fill = SubResource("StyleBoxFlat_vkoor")
 value = 100.0
 show_percentage = false
+
+[node name="expBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+z_index = 100
+offset_left = -2948.0
+offset_top = -1444.96
+offset_right = -1748.0
+offset_bottom = -1404.96
+scale = Vector2(5.13233, 8.12041)
+texture_under = ExtResource("5_12i2a")
+texture_progress = ExtResource("6_lcpmg")
+
+[node name="Label" type="Label" parent="expBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 33.0
+scale = Vector2(0.9948, 0.603951)
+text = "Level "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="walkTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="area_entered" from="pickupRange" to="." method="_on_pickup_range_area_entered"]
+[connection signal="area_entered" from="collectArea" to="." method="_on_collect_area_area_entered"]
