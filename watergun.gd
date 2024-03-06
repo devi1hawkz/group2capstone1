@@ -10,7 +10,7 @@ func _physics_process(_delta):
 			$shootTime.start()
 
 func shoot():
-	var bubble = preload("res://bubble.tscn")
+	var bubble = preload("res://Bubble.tscn")
 	var new_bubb = bubble.instantiate()
 	owner.add_child(new_bubb)
 	new_bubb.global_position = %shootPoint.global_position

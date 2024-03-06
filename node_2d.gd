@@ -4,7 +4,7 @@ extends Node2D
 @onready var q_menu = $Player/Camera2D/QuizPanel
 @onready var d_screen = $Player/Camera2D/deathScreen
 @onready var player = $Player
-var paused = false
+signal paused
 
 @onready var QuestionText = $Player/Camera2D/QuizPanel/Question_Name
 @onready var ListItem = $Player/Camera2D/QuizPanel/ItemList
@@ -70,7 +70,9 @@ func get_rand(arr_length):
 func _ready():
 	spawner()
 	randomize()
-	
+	player.hp_zero.connect(_on_hp_zero)
+	paused.connect(_on_paused)
+
 func spawner():
 	var squareMob = preload("res://enemy_1.tscn").instantiate()
 	%PathFollow2D.progress_ratio = randf()
@@ -79,33 +81,33 @@ func spawner():
 
 func _on_spawn_timer_timeout():
 	spawner()
-	
-func _process(delta):
+
+func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
-		pauseMenu()
-	player.hp_zero.connect(_on_hp_zero)
-	
-	
+		paused.emit()
+
+func _on_paused():
+	pauseMenu()
+
 func _on_hp_zero():
 	deathScreen()
 	
 func deathScreen():
 	get_tree().change_scene_to_file("res://death_screen.tscn")
 	Engine.time_scale = 0
-	
+
 func pauseMenu():
-	if paused:
+	if p_menu.visible == true:
 		p_menu.hide()
-		Engine.time_scale = 1
+		get_tree().paused = false
 	else: 
 		p_menu.show()
-		Engine.time_scale = 0
-	paused = !paused
+		get_tree().paused = true
 
 func level_up():
-	if paused:
+	if get_tree().paused == true:
 		q_menu.hide()
-		Engine.time_scale = 1
+		get_tree().paused = false
 	else:
 		q_menu.show()
 		get_tree().paused = true

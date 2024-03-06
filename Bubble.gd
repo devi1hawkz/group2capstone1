@@ -4,11 +4,11 @@ var distance = 0
 
 func _physics_process(delta):
 	var move_speed = 700
-	var range = 3000
+	var shoot_range = 3000
 	var dir = Vector2.RIGHT.rotated(rotation)
 	position+=dir*move_speed*delta
 	distance += move_speed*delta
-	if distance > range:
+	if distance > shoot_range:
 		queue_free()
 
 
