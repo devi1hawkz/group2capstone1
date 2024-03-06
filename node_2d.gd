@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var p_menu = $Player/Camera2D/pause_menu
 @onready var q_menu = $Player/Camera2D/QuizPanel
+@onready var d_screen = $Player/Camera2D/deathScreen
+@onready var player = $Player
 var paused = false
 
 @onready var QuestionText = $Player/Camera2D/QuizPanel/Question_Name
@@ -15,6 +17,8 @@ var item: Dictionary
 var index_item: int = 0
 var correct: bool = false
 
+var choice_made = false
+
 func read_json_file(filename):
 	var json_as_text = FileAccess.get_file_as_string(filename)
 	var json_as_dict = JSON.parse_string(json_as_text)
@@ -23,6 +27,7 @@ func read_json_file(filename):
 var questions : Array = read_json_file(file_path)
 
 func quiz_question():
+	okButton.hide()
 	ListItem.clear()
 	corrAns.text = ""
 	item = items.pick_random()
@@ -33,15 +38,20 @@ func quiz_question():
 
 
 func _on_item_list_item_selected(index):
-	if index == item.correctAns:
-		corrAns.text = "Correct!"
-		correct = true
-		okButton.show()
+	if choice_made == false:
+		choice_made = true
+		if index == item.correctAns:
+			corrAns.text = "Correct!"
+			correct = true
+			okButton.show()
+		else:
+			corrAns.text = "Incorrect. The correct answer is " + item.options[item.correctAns]
+			okButton.show()
 	else:
-		corrAns.text = "Incorrect. The correct answer is " + item.options[item.correctAns]
-		okButton.show()
+		ListItem.deselect_all()
 
 func _on_ok_button_pressed():
+	choice_made = false
 	if correct == true:
 		level_reward()
 	else:
@@ -73,7 +83,16 @@ func _on_spawn_timer_timeout():
 func _process(delta):
 	if Input.is_action_just_pressed("pause"):
 		pauseMenu()
-
+	player.hp_zero.connect(_on_hp_zero)
+	
+	
+func _on_hp_zero():
+	deathScreen()
+	
+func deathScreen():
+	get_tree().change_scene_to_file("res://death_screen.tscn")
+	Engine.time_scale = 0
+	
 func pauseMenu():
 	if paused:
 		p_menu.hide()
