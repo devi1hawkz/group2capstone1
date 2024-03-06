@@ -4,7 +4,7 @@ extends Node2D
 @onready var q_menu = $Player/Camera2D/QuizPanel
 @onready var d_screen = $Player/Camera2D/deathScreen
 @onready var player = $Player
-signal paused
+signal is_paused
 
 @onready var QuestionText = $Player/Camera2D/QuizPanel/Question_Name
 @onready var ListItem = $Player/Camera2D/QuizPanel/ItemList
@@ -71,7 +71,7 @@ func _ready():
 	spawner()
 	randomize()
 	player.hp_zero.connect(_on_hp_zero)
-	paused.connect(_on_paused)
+	is_paused.connect(_on_paused)
 
 func spawner():
 	var squareMob = preload("res://enemy_1.tscn").instantiate()
@@ -84,7 +84,7 @@ func _on_spawn_timer_timeout():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
-		paused.emit()
+		is_paused.emit()
 
 func _on_paused():
 	pauseMenu()
