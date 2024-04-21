@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bq33245hlfmpn"]
+[gd_scene load_steps=4 format=3 uid="uid://bq33245hlfmpn"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_8ccp5"]
 [ext_resource type="Texture2D" uid="uid://bbtmx08i8tvs2" path="res://UI/menu_assets/logo.png" id="2_2wxqp"]
+
+[sub_resource type="Theme" id="Theme_xptfb"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -54,8 +56,43 @@ layout_mode = 2
 text = "Quit
 "
 
+[node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 0
+offset_left = 99.0
+offset_top = 20.0
+offset_right = 498.0
+offset_bottom = 263.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+layout_mode = 0
+offset_right = 399.0
+offset_bottom = 239.0
+color = Color(0.380392, 0.380392, 0.380392, 1)
+
+[node name="Button" type="Button" parent="Panel/ColorRect"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 170.0
+offset_right = 256.0
+offset_bottom = 225.0
+text = "OK"
+
+[node name="Label" type="Label" parent="Panel/ColorRect"]
+layout_mode = 0
+offset_right = 399.0
+offset_bottom = 120.0
+theme = SubResource("Theme_xptfb")
+theme_override_font_sizes/font_size = 20
+text = "Select a quiz file in \"Select Quiz\" first!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/SelectQuiz" to="." method="_on_select_quiz_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_select_quiz_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Panel/ColorRect/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo7mk1b0fo1l3"]
+
+[ext_resource type="Script" path="res://QuizMenu.gd" id="1_7gbx0"]
+
+[node name="QuizMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7gbx0")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 51.0
+text = "Select a set of questions to be quizzed over:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemList" type="ItemList" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 51.0
+offset_right = 600.0
+offset_bottom = 223.0
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 214.0
+offset_top = 246.0
+offset_right = 369.0
+offset_bottom = 298.0
+text = "Back"
+
+[connection signal="item_selected" from="ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
