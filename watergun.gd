@@ -2,6 +2,7 @@ extends Area2D
 
 
 func _physics_process(_delta):
+	$shootTime.wait_time = Global.range_atk_spd
 	var enemies = get_overlapping_bodies()
 	if enemies.size() > 0:
 		var target = enemies[0]
@@ -20,4 +21,6 @@ func shoot():
 
 func _on_shoot_time_timeout():
 	shoot()
+	if Global.range_atk_spd != $shootTime.wait_time:
+		$shootTime.wait_time = Global.range_atk_spd
 	$shootTime.start()

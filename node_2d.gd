@@ -4,6 +4,7 @@ extends Node2D
 @onready var q_menu = $Player/Camera2D/QuizPanel
 @onready var d_screen = $Player/Camera2D/deathScreen
 @onready var player = $Player
+@onready var wolfMob = preload("res://enemy_1.tscn").instantiate()
 signal is_paused
 
 @onready var QuestionText = $Player/Camera2D/QuizPanel/Question_Name
@@ -49,7 +50,6 @@ func quiz_question():
 func _on_item_list_item_selected(index):
 	if choice_made == false:
 		choice_made = true
-		var correctAns = item["correct_option"]
 		if ListItem.get_item_text(index) == item.options[item.correct_option[0]]:
 			corrAns.text = "Correct!"
 			correct = true
@@ -70,6 +70,7 @@ func _on_ok_button_pressed():
 
 func level_reward():
 	q_menu.hide()
+	
 	get_tree().paused=false
 
 func get_rand(arr_length):
@@ -78,6 +79,10 @@ func get_rand(arr_length):
 
 
 func _ready():
+	Global.range_atk_dmg = 1
+	Global.range_atk_count = 1
+	Global.range_range = 3000
+	Global.range_atk_spd = .6
 	file_json();
 	spawner()
 	randomize()
@@ -85,10 +90,10 @@ func _ready():
 	is_paused.connect(_on_paused)
 
 func spawner():
-	var squareMob = preload("res://enemy_1.tscn").instantiate()
+
 	%PathFollow2D.progress_ratio = randf()
-	squareMob.global_position = %PathFollow2D.global_position
-	add_child(squareMob)
+	wolfMob.global_position = %PathFollow2D.global_position
+	add_child(wolfMob)
 
 func _on_spawn_timer_timeout():
 	spawner()
