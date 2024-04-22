@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://q2vyf4spyvlk"]
+[gd_scene load_steps=12 format=3 uid="uid://q2vyf4spyvlk"]
 
 [ext_resource type="Script" path="res://node_2d.gd" id="1_ru8mw"]
 [ext_resource type="Texture2D" uid="uid://3v7urx6f5bt6" path="res://Textures/Background/Pixel_art_grass_image.png" id="1_uoe4f"]
@@ -13,6 +13,8 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qxh7f"]
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_7qyy2"]
 
 [sub_resource type="Curve2D" id="Curve2D_qpqxs"]
 _data = {
@@ -47,7 +49,6 @@ scale = Vector2(2.80235, 2.84701)
 [node name="QuizPanel" type="Panel" parent="Player/Camera2D"]
 unique_name_in_owner = true
 process_mode = 2
-visible = false
 z_index = 90
 anchors_preset = 8
 anchor_left = 0.5
@@ -67,9 +68,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -145.0
-offset_top = -48.0
-offset_right = 148.0
+offset_left = -149.0
+offset_top = -50.0
+offset_right = 149.0
 offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -140,6 +141,74 @@ text = "OK"
 [node name="deathScreen" parent="Player/Camera2D" instance=ExtResource("5_sba2x")]
 visible = false
 
+[node name="UpgradePanel" type="Panel" parent="Player/Camera2D"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+z_index = 90
+offset_left = -351.0
+offset_top = -172.0
+offset_right = 348.0
+offset_bottom = 173.0
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D/UpgradePanel"]
+layout_mode = 0
+offset_top = -2.0
+offset_right = 699.0
+offset_bottom = 345.0
+
+[node name="Label" type="Label" parent="Player/Camera2D/UpgradePanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 36.0
+offset_right = 699.0
+offset_bottom = 59.0
+theme = SubResource("Theme_7qyy2")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Choose A Level Up Upgrade!"
+horizontal_alignment = 1
+
+[node name="upgradelist" type="ItemList" parent="Player/Camera2D/UpgradePanel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 26.0
+offset_top = 73.0
+offset_right = 651.0
+offset_bottom = 166.0
+item_count = 3
+icon_mode = 0
+item_0/text = "Attack Speed Up"
+item_1/text = "Damage Up"
+item_2/text = "Projectile Count Up"
+
+[node name="dmgButton" type="Button" parent="Player/Camera2D/UpgradePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 137.295
+offset_top = 68.6318
+offset_right = 564.295
+offset_bottom = 94.6318
+action_mode = 0
+
+[node name="spdButton" type="Button" parent="Player/Camera2D/UpgradePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 138.456
+offset_top = 118.574
+offset_right = 565.456
+offset_bottom = 144.574
+action_mode = 0
+
+[node name="countButton" type="Button" parent="Player/Camera2D/UpgradePanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 138.456
+offset_top = 163.87
+offset_right = 565.456
+offset_bottom = 189.87
+action_mode = 0
+
 [node name="Path2D" type="Path2D" parent="Player"]
 position = Vector2(-60, -148.515)
 scale = Vector2(10, 9.90099)
@@ -179,4 +248,8 @@ vertical_alignment = 1
 
 [connection signal="item_selected" from="Player/Camera2D/QuizPanel/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="pressed" from="Player/Camera2D/QuizPanel/okButton" to="." method="_on_ok_button_pressed"]
+[connection signal="item_selected" from="Player/Camera2D/UpgradePanel/upgradelist" to="." method="_on_upgradelist_item_selected"]
+[connection signal="pressed" from="Player/Camera2D/UpgradePanel/dmgButton" to="." method="_on_dmg_button_pressed"]
+[connection signal="pressed" from="Player/Camera2D/UpgradePanel/spdButton" to="." method="_on_spd_button_pressed"]
+[connection signal="pressed" from="Player/Camera2D/UpgradePanel/countButton" to="." method="_on_count_button_pressed"]
 [connection signal="timeout" from="spawnTimer" to="." method="_on_spawn_timer_timeout"]

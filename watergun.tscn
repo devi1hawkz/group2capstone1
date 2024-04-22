@@ -36,5 +36,12 @@ position = Vector2(125.253, -11.6932)
 unique_name_in_owner = true
 stream = ExtResource("3_cd17q")
 
+[node name="multishootTime" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
 [connection signal="timeout" from="shootTime" to="." method="_on_shoot_time_timeout"]
 [connection signal="finished" from="pop" to="." method="_on_pop_finished"]
+[connection signal="timeout" from="multishootTime" to="." method="_on_multishoot_time_timeout"]

@@ -2,15 +2,19 @@ extends Node2D
 
 @onready var p_menu = $Player/Camera2D/pause_menu
 @onready var q_menu = $Player/Camera2D/QuizPanel
+@onready var u_menu = $Player/Camera2D/UpgradePanel
+@onready var u_list = $Player/Camera2D/UpgradePanel/upgradelist
+
 @onready var d_screen = $Player/Camera2D/deathScreen
 @onready var player = $Player
-@onready var wolfMob = preload("res://enemy_1.tscn").instantiate()
+@onready var wolfMob
 signal is_paused
 
 @onready var QuestionText = $Player/Camera2D/QuizPanel/Question_Name
 @onready var ListItem = $Player/Camera2D/QuizPanel/ItemList
 @onready var corrAns = $Player/Camera2D/QuizPanel/CorrectAns
 @onready var okButton = $Player/Camera2D/QuizPanel/okButton
+@onready var xpbar = $Player/expBar
 var file_path = str("res://Quiz Files/",Global.file_name)
 var items
 var formatted_questions = []
@@ -31,12 +35,13 @@ func file_json():
 				formatted_question["correct_option"] = question_data["correct_option"]
 				formatted_questions.append(formatted_question)
 
-func read_json_file(file_path):
-	var json_as_text = FileAccess.get_file_as_string(file_path)
+func read_json_file(filepath):
+	var json_as_text = FileAccess.get_file_as_string(filepath)
 	var json_as_dict = JSON.parse_string(json_as_text)
 	return json_as_dict
 
 func quiz_question():
+	
 	okButton.hide()
 	ListItem.clear()
 	corrAns.text = ""
@@ -56,6 +61,7 @@ func _on_item_list_item_selected(index):
 			okButton.show()
 		else:
 			corrAns.text = "Incorrect. The correct answer is " + item.options[item.correct_option[0]]
+			correct==false
 			okButton.show()
 	else:
 		ListItem.deselect_all()
@@ -63,15 +69,56 @@ func _on_item_list_item_selected(index):
 func _on_ok_button_pressed():
 	choice_made = false
 	if correct == true:
+		correct==false
 		level_reward()
 	else:
 		q_menu.hide()
+		xpbar.show()
 		get_tree().paused=false
 
 func level_reward():
 	q_menu.hide()
+	u_list.set_item_text(0, str("Increase Damage by .1 (Current Damage: ",Global.range_atk_dmg,")"))
+	u_list.set_item_text(1, str("Increase Attack Speed by .05 (Current Attack Speed: ",Global.range_atk_spd,")"))
+	u_list.set_item_text(2, str("Increase Projectile Count by .1 (Current Projectiles: ",Global.range_atk_count,")"))
+	u_list.set_item_selectable(0,true)
+	u_list.set_item_selectable(1,true)
+	u_list.set_item_selectable(2,true)
+	$Player/Camera2D/UpgradePanel/dmgButton.text = str("Increase Damage by .2 (Current Damage: ",Global.range_atk_dmg,")")
+	$Player/Camera2D/UpgradePanel/spdButton.text = str("Increase Attack Speed by .05 (Current Attack Speed: ",Global.range_atk_spd,")")
+	$Player/Camera2D/UpgradePanel/countButton.text = str("Increase Projectile Count by .1 (Current Projectiles: ",snappedf(float((1-(Global.range_atk_count/10.0))),.01),")")
+	u_menu.show()
 	
+
+func _on_dmg_button_pressed():
+	Global.range_atk_dmg=Global.range_atk_dmg+.2;
+	u_menu.hide()
+	xpbar.show()
 	get_tree().paused=false
+	
+
+func _on_spd_button_pressed():
+	Global.range_atk_spd-=.05;
+	u_menu.hide()
+	xpbar.show()
+	get_tree().paused=false
+	
+
+func _on_count_button_pressed():
+	Global.range_atk_count-=1;
+	u_menu.hide()
+	xpbar.show()
+	get_tree().paused=false
+
+#func _on_upgradelist_item_selected(index):
+	#if index == 1:
+		#Global.range_atk_dmg+=.2;
+	#elif index == 2:
+		#Global.range_atk_spd-=.05;
+	#elif index == 3:
+		#Global.range_atk_count+=.2;
+	#get_tree().paused=false
+	#xpbar.show()
 
 func get_rand(arr_length):
 	var r = randf_range(0,arr_length);
@@ -80,7 +127,7 @@ func get_rand(arr_length):
 
 func _ready():
 	Global.range_atk_dmg = 1
-	Global.range_atk_count = 1
+	Global.range_atk_count = 10
 	Global.range_range = 3000
 	Global.range_atk_spd = .6
 	file_json();
@@ -90,7 +137,7 @@ func _ready():
 	is_paused.connect(_on_paused)
 
 func spawner():
-
+	wolfMob = preload("res://enemy_1.tscn").instantiate()
 	%PathFollow2D.progress_ratio = randf()
 	wolfMob.global_position = %PathFollow2D.global_position
 	add_child(wolfMob)
@@ -123,8 +170,16 @@ func pauseMenu():
 func level_up():
 	if get_tree().paused == true:
 		q_menu.hide()
+		xpbar.show()
 		get_tree().paused = false
 	else:
 		q_menu.show()
 		get_tree().paused = true
+		xpbar.hide()
 		quiz_question()
+
+
+
+
+
+
