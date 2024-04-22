@@ -24,7 +24,16 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_top = 51.0
 offset_right = 600.0
-offset_bottom = 223.0
+offset_bottom = 217.0
+
+[node name="Selected" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 217.0
+offset_right = 600.0
+offset_bottom = 240.0
+text = "Current Selected File: "
+horizontal_alignment = 1
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 0

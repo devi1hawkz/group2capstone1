@@ -10,7 +10,7 @@ signal is_paused
 @onready var ListItem = $Player/Camera2D/QuizPanel/ItemList
 @onready var corrAns = $Player/Camera2D/QuizPanel/CorrectAns
 @onready var okButton = $Player/Camera2D/QuizPanel/okButton
-var file_path = str("res://Quiz Files/",FileName.file_name)
+var file_path = str("res://Quiz Files/",Global.file_name)
 var items
 var formatted_questions = []
 var item: Dictionary
@@ -50,7 +50,7 @@ func _on_item_list_item_selected(index):
 	if choice_made == false:
 		choice_made = true
 		var correctAns = item["correct_option"]
-		if index in correctAns:
+		if ListItem.get_item_text(index) == item.options[item.correct_option[0]]:
 			corrAns.text = "Correct!"
 			correct = true
 			okButton.show()

@@ -2,6 +2,7 @@ extends Control
 @onready var ListItem = $ItemList
 @onready var dir = DirAccess.open("res://Quiz Files")
 @onready var items = dir.get_files()
+@onready var select = $Selected
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	quiz_display()
@@ -18,7 +19,10 @@ func _on_back_pressed():
 func quiz_display():
 	for i in items.size():
 		ListItem.add_item(items[i])
+	if(Global.file_name!=null):
+		select.text = ("Current Selected File: " + Global.file_name)
 
 
 func _on_item_list_item_selected(index):
-	FileName.file_name = items[index]
+	Global.file_name = items[index]
+	select.text = ("Current Selected File: " + Global.file_name)

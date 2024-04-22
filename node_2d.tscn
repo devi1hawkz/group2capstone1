@@ -67,6 +67,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -145.0
+offset_top = -48.0
+offset_right = 148.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -76,14 +80,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -199.5
-offset_top = 15.0
-offset_right = 199.5
-offset_bottom = 38.0
+offset_left = -342.0
+offset_top = -21.0
+offset_right = 341.0
+offset_bottom = 2.0
 grow_horizontal = 2
 text = "Question"
 label_settings = SubResource("LabelSettings_m1d06")
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="ItemList" type="ItemList" parent="Player/Camera2D/QuizPanel"]
 unique_name_in_owner = true
@@ -93,10 +98,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -164.0
+offset_left = -200.0
 offset_top = -66.0
-offset_right = 163.0
-offset_bottom = 45.0
+offset_right = 215.0
+offset_bottom = 84.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -108,13 +113,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -129.985
-offset_top = -72.7352
-offset_right = 145.015
-offset_bottom = -49.7352
+offset_left = -200.0
+offset_top = -68.0
+offset_right = 214.0
+offset_bottom = -45.0
 grow_horizontal = 2
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_qxh7f")
+horizontal_alignment = 1
 
 [node name="okButton" type="Button" parent="Player/Camera2D/QuizPanel"]
 unique_name_in_owner = true

@@ -4,8 +4,8 @@ func _ready():
 	pass
 
 func _on_start_pressed():
-	if FileName.file_name != null:
-		print(FileName.file_name)
+	if Global.file_name != null:
+		print(Global.file_name)
 		get_tree().change_scene_to_file("res://node_2d.tscn")
 	else:
 		get_tree().paused=true

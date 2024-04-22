@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bq33245hlfmpn"]
+[gd_scene load_steps=5 format=3 uid="uid://bq33245hlfmpn"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_8ccp5"]
-[ext_resource type="Texture2D" uid="uid://bbtmx08i8tvs2" path="res://UI/menu_assets/logo.png" id="2_2wxqp"]
+[ext_resource type="Texture2D" uid="uid://baf18aaja280t" path="res://Textures/Background/Capstone1TitleScreenPlaceholder.png" id="2_k2gc4"]
+[ext_resource type="Texture2D" uid="uid://ddyx0lluapkg3" path="res://Textures/title.PNG" id="3_eiyh8"]
 
 [sub_resource type="Theme" id="Theme_xptfb"]
 
@@ -14,16 +15,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8ccp5")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-offset_right = 270.0
-offset_bottom = 40.0
-scale = Vector2(2.24, 8)
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 300.0
+texture = ExtResource("2_k2gc4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(300, 150)
+position = Vector2(302, 87)
 scale = Vector2(0.75, 0.5)
-texture = ExtResource("2_2wxqp")
+texture = ExtResource("3_eiyh8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

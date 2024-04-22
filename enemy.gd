@@ -6,11 +6,25 @@ extends CharacterBody2D
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var expval = 2
 @onready var expgem = preload("res://gem.tscn")
+@onready var sprite = $Sprite2D
+@onready var walk = get_node("walkTimer")
 
 func _physics_process(_delta):
 	var dir = global_position.direction_to(player.global_position)
 	velocity = dir*move_speed
 	move_and_slide()
+	var moves = dir
+	if moves.x > 0:
+		sprite.flip_h=false
+	elif moves.x < 0:
+		sprite.flip_h=true
+	if moves != Vector2.ZERO:
+		if walk.is_stopped():
+			if sprite.frame >= sprite.hframes-1:
+				sprite.frame = 1
+			else:
+				sprite.frame += 1
+			walk.start()
 
 func damaged(dmg):
 	hp -=dmg
