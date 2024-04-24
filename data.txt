@@ -1,0 +1,6 @@
+What is your favorite beer? 
+miller, coors, angry, busch
+miller
+What is your favorite OS 
+apple, linux, windows, Debain
+apple
