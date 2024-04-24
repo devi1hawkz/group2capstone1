@@ -4,14 +4,15 @@ var shootCount=0
 var multThresh
 
 func _physics_process(_delta):
-	multThresh=Global.range_atk_count
-	$shootTime.wait_time = Global.range_atk_spd
-	var enemies = get_overlapping_bodies()
-	if enemies.size() > 0:
-		var target = enemies[0]
-		look_at(target.global_position)
-		if $shootTime.time_left <= 0:
-			$shootTime.start()
+	if Global.ranged == true:
+		multThresh=Global.range_atk_count
+		$shootTime.wait_time = Global.range_atk_spd
+		var enemies = get_overlapping_bodies()
+		if enemies.size() > 0:
+			var target = enemies[0]
+			look_at(target.global_position)
+			if $shootTime.time_left <= 0:
+				$shootTime.start()
 			
 
 func shoot():

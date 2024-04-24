@@ -11,10 +11,29 @@ var xp_to_lvl = 0
 @onready var levelLabel = get_node("%Label")
 @onready var main = $"../"
 @onready var sprite = $Sprite2D
+@onready var spriteS = $Sprite2DSword
 @onready var walk = get_node("walkTimer")
+@onready var wg = $watergun
+@onready var mRange = $meleeRange/meleeRangeBox
+@onready var mTimer = $meleeTimer
+@onready var invisS = $Sprite2D2
+
 func _ready():
 	set_bar(xp,calc_xp_cap())
 	%Label.text = str("Level: ", xp_lvl)
+	if Global.melee == true:
+		Global.melee_range = 60
+		Global.melee_atk_dmg = 2
+		Global.melee_atk_spd = 2.3
+		mTimer.wait_time = Global.melee_atk_spd
+	if Global.ranged == true:
+		sprite.visible = true;
+		spriteS.visible = false;
+		wg.visible = true;
+	else:
+		sprite.visible = false;
+		spriteS.visible = true;
+		wg.visible = false;
 
 func _physics_process(delta):
 	move()
@@ -24,27 +43,53 @@ func _physics_process(delta):
 		%healthbar.value=hp
 		if hp <= 0.0:
 			hp_zero.emit()
+	if(Global.melee==true):
+		invisS.look_at(get_global_mouse_position())
+		if %meleeTimer.time_left <= 0:
+			%meleeTimer.start()
+
+func _on_melee_timer_timeout():
+	slice()
+
+func slice():
+	var sliced = preload("res://slice.tscn")
+	var new_slice = sliced.instantiate()
+	owner.add_child(new_slice)
+	new_slice.global_position = %Sprite2D2/meleeSpawn.global_position
+	%swing.play()
+	new_slice.global_rotation = %Sprite2D2/meleeSpawn.global_rotation
 
 func move():
 	var x_move = -Input.get_action_strength("left") + Input.get_action_strength("right")
 	var y_move = -Input.get_action_strength("up") + Input.get_action_strength("down")
 	var moves = Vector2(x_move,y_move)
-	if moves.x > 0:
-		sprite.flip_h=false
-	elif moves.x < 0:
-		sprite.flip_h=true
-	if moves != Vector2.ZERO:
-		if walk.is_stopped():
-			if sprite.frame >= sprite.hframes-1:
-				sprite.frame = 1
-			else:
-				sprite.frame += 1
-			walk.start()
+	if(Global.ranged==true):
+		if moves.x > 0:
+			sprite.flip_h=false
+		elif moves.x < 0:
+			sprite.flip_h=true
+		if moves != Vector2.ZERO:
+			if walk.is_stopped():
+				if sprite.frame >= sprite.hframes-1:
+					sprite.frame = 1
+				else:
+					sprite.frame += 1
+				walk.start()
+	elif(Global.melee==true):
+		if moves.x > 0:
+			spriteS.flip_h=false
+		elif moves.x < 0:
+			spriteS.flip_h=true
+		if moves != Vector2.ZERO:
+			if walk.is_stopped():
+				if spriteS.frame >= spriteS.hframes-1:
+					spriteS.frame = 1
+				else:
+					spriteS.frame += 1
+				walk.start()
 	velocity = moves.normalized()*move_spd
 	move_and_slide()
 	
-
-
 
 func _on_pickup_range_area_entered(area):
 	if area.is_in_group("loot"):

@@ -87,28 +87,42 @@ func level_reward():
 	u_list.set_item_selectable(0,true)
 	u_list.set_item_selectable(1,true)
 	u_list.set_item_selectable(2,true)
-	$Player/Camera2D/UpgradePanel/dmgButton.text = str("Increase Damage by .2 (Current Damage: ",Global.range_atk_dmg,")")
-	$Player/Camera2D/UpgradePanel/spdButton.text = str("Increase Attack Speed by .05 (Current Attack Speed: ",Global.range_atk_spd,")")
-	$Player/Camera2D/UpgradePanel/countButton.text = str("Increase Projectile Count by .1 (Current Projectiles: ",snappedf(float((1-(Global.range_atk_count/10.0))),.01),")")
+	if Global.ranged == true:
+		$Player/Camera2D/UpgradePanel/dmgButton.text = str("Increase Damage by .2 (Current Damage: ",Global.range_atk_dmg,")")
+		$Player/Camera2D/UpgradePanel/spdButton.text = str("Increase Attack Speed by .05 (Current Attack Speed: ",Global.range_atk_spd,")")
+		$Player/Camera2D/UpgradePanel/countButton.text = str("Increase Projectile Count by .1 (Current Projectiles: ",snappedf(float((1-(Global.range_atk_count/10.0))),.01),")")
+	else:
+		$Player/Camera2D/UpgradePanel/dmgButton.text = str("Increase Damage by .2 (Current Damage: ",Global.melee_atk_dmg,")")
+		$Player/Camera2D/UpgradePanel/spdButton.text = str("Increase Attack Speed by .15 (Current Attack Speed: ",Global.melee_atk_spd,")")
+		$Player/Camera2D/UpgradePanel/countButton.text = str("Increase Range by 10 (Current Range: ",Global.melee_range,")")
 	u_menu.show()
 	
 
 func _on_dmg_button_pressed():
-	Global.range_atk_dmg=Global.range_atk_dmg+.2;
+	if Global.ranged == true:
+		Global.range_atk_dmg=Global.range_atk_dmg+.2;
+	else:
+		Global.melee_atk_dmg=Global.melee_atk_dmg+.2
 	u_menu.hide()
 	xpbar.show()
 	get_tree().paused=false
 	
 
 func _on_spd_button_pressed():
-	Global.range_atk_spd-=.05;
+	if Global.ranged == true:
+		Global.range_atk_spd-=.05;
+	else:
+		Global.melee_atk_spd-=.15;
 	u_menu.hide()
 	xpbar.show()
 	get_tree().paused=false
 	
 
 func _on_count_button_pressed():
-	Global.range_atk_count-=1;
+	if Global.ranged==true:
+		Global.range_atk_count-=1;
+	else:
+		Global.melee_range+=10
 	u_menu.hide()
 	xpbar.show()
 	get_tree().paused=false
@@ -129,10 +143,14 @@ func get_rand(arr_length):
 
 
 func _ready():
-	Global.range_atk_dmg = 1
-	Global.range_atk_count = 10
-	Global.range_range = 3000
-	Global.range_atk_spd = .6
+	if(Global.ranged == true):
+		Global.range_atk_dmg = 1
+		Global.range_atk_count = 10
+		Global.range_range = 3000
+		Global.range_atk_spd = .6
+	else:
+		Global.melee_atk_spd = 2
+		Global.melee_atk_dmg = 3
 	file_json();
 	spawner()
 	randomize()

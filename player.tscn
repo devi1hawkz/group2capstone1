@@ -1,11 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://1icwj582vuqw"]
+[gd_scene load_steps=19 format=3 uid="uid://1icwj582vuqw"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_xttrc"]
 [ext_resource type="Texture2D" uid="uid://mn4rciw4mfxt" path="res://Textures/Player/sprite_sheet.png" id="2_qxqk2"]
 [ext_resource type="PackedScene" uid="uid://crlvherxqfwwx" path="res://watergun.tscn" id="3_aumnu"]
+[ext_resource type="Texture2D" uid="uid://dgs82u27nrvlc" path="res://Textures/spritesheet-sword.png" id="3_sx7ei"]
 [ext_resource type="Script" path="res://pickupRange.gd" id="4_h88jr"]
 [ext_resource type="Texture2D" uid="uid://cux7edcvpklky" path="res://Textures/exp_background.png" id="5_12i2a"]
 [ext_resource type="Texture2D" uid="uid://bqabj00opjqo1" path="res://Textures/exp_progress.png" id="6_lcpmg"]
+[ext_resource type="Texture2D" uid="uid://h15tiho06a7x" path="res://Textures/Gem.png" id="8_n71eb"]
+[ext_resource type="AudioStream" uid="uid://b2cs5b18ol0g5" path="res://Sounds/swordswing.mp3" id="9_67ns6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sc741"]
 size = Vector2(141.971, 298.626)
@@ -17,7 +20,7 @@ size = Vector2(126.389, 304.685)
 radius = 336.076
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hf4ig"]
-radius = 201.023
+radius = 422.595
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ndcp3"]
 bg_color = Color(0, 0, 0, 1)
@@ -47,6 +50,9 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rihff"]
+radius = 846.191
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(1, 0.981341)
 motion_mode = 1
@@ -59,17 +65,27 @@ scale = Vector2(9, 9)
 texture = ExtResource("2_qxqk2")
 hframes = 3
 
+[node name="Sprite2DSword" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-3, 8.15211)
+scale = Vector2(1.67857, 1.80365)
+texture = ExtResource("3_sx7ei")
+hframes = 3
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-27, 11.2092)
 scale = Vector2(1.1446, 0.975931)
 shape = SubResource("RectangleShape2D_sc741")
 
 [node name="watergun" parent="." instance=ExtResource("3_aumnu")]
+visible = false
 position = Vector2(17, -1.01901)
 scale = Vector2(1.2774, 1.27024)
 
 [node name="playerHurtbox" type="Area2D" parent="."]
 unique_name_in_owner = true
+visible = false
 scale = Vector2(1.44, 1)
 collision_mask = 4
 
@@ -78,6 +94,7 @@ position = Vector2(-19.4444, 10.6997)
 shape = SubResource("RectangleShape2D_ieg40")
 
 [node name="pickupRange" type="Area2D" parent="."]
+visible = false
 scale = Vector2(-2.19151, -2.20083)
 collision_layer = 0
 collision_mask = 8
@@ -91,6 +108,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collectArea"]
+position = Vector2(0, 11.2092)
 shape = SubResource("CircleShape2D_hf4ig")
 
 [node name="healthbar2" type="ProgressBar" parent="."]
@@ -141,5 +159,34 @@ vertical_alignment = 1
 wait_time = 0.2
 one_shot = true
 
+[node name="meleeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.8
+
+[node name="meleeRange" type="Area2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(1.44, 1)
+
+[node name="meleeRangeBox" type="CollisionShape2D" parent="meleeRange"]
+unique_name_in_owner = true
+scale = Vector2(0.694444, 1.01901)
+shape = SubResource("CircleShape2D_rihff")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -7.1331)
+texture = ExtResource("8_n71eb")
+
+[node name="meleeSpawn" type="Marker2D" parent="Sprite2D2"]
+unique_name_in_owner = true
+position = Vector2(0, -8.15213)
+
+[node name="swing" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("9_67ns6")
+volume_db = -22.0
+
 [connection signal="area_entered" from="pickupRange" to="." method="_on_pickup_range_area_entered"]
 [connection signal="area_entered" from="collectArea" to="." method="_on_collect_area_area_entered"]
+[connection signal="timeout" from="meleeTimer" to="." method="_on_melee_timer_timeout"]
