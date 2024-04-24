@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var expgem = preload("res://gem.tscn")
 @onready var sprite = $Sprite2D
 @onready var walk = get_node("walkTimer")
+@onready var atkSpd = 2
 var frame_index = 0
 var frame_count = 3
 var frame_duration = 0.35
@@ -20,6 +21,7 @@ func _ready():
 	timer.wait_time = frame_duration
 	add_child(timer)
 	timer.start()
+	shoot_towards_player()
 
 func _process(delta):
 	elapsed_time += delta
@@ -27,6 +29,16 @@ func _process(delta):
 		frame_index = (frame_index + 1) % frame_count
 		sprite.frame = frame_index
 		elapsed_time = 0.0
+
+func shoot_towards_player():
+	var evilBubble = preload("res://evilBubble.tscn")
+	var atk = evilBubble.instantiate()
+	self.add_child(atk)
+	atk.global_position = self.get_position()
+	atk.look_at(get_node("/root/World/Player").get_position())
+
+func _on_shoot_timer_timeout():
+	shoot_towards_player()
 
 func _on_Timer_timeout():
 	frame_index += 1
@@ -42,6 +54,8 @@ func _physics_process(_delta):
 		sprite.flip_h=false
 	elif moves.x < 0:
 		sprite.flip_h=true
+	if $shootTimer.time_left <= 0:
+		$shootTimer.start()
 	
 
 func damaged(dmg):

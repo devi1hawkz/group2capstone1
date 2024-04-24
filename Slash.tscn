@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlnlujty2rfwg"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_i5gsf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frc3g"]
+size = Vector2(187, 66)
+
+[node name="Slash" type="Area2D"]
+position = Vector2(-1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(71.5556, 0.62996)
+scale = Vector2(-121.952, 58.9563)
+texture = SubResource("CanvasTexture_i5gsf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(100, 1)
+shape = SubResource("RectangleShape2D_frc3g")
+debug_color = Color(0.998802, 0, 0.132208, 0.42)

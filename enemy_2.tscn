@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cafaw56qon2ro"]
+[gd_scene load_steps=4 format=3 uid="uid://bd0g55aght8gu"]
 
 [ext_resource type="Script" path="res://enemy_2.gd" id="1_6wdgv"]
 
@@ -31,3 +31,12 @@ shape = SubResource("RectangleShape2D_mcag1")
 [node name="walkTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="shootTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Marker2D"]
+position = Vector2(110, 0)
