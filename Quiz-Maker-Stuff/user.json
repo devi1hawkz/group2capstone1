@@ -1,0 +1,30 @@
+{
+    "questions": [
+        {
+            "type": "multiple_choice",
+            "text": "What is your favorite beer?",
+            "options": [
+                "miller",
+                "coors",
+                "angry",
+                "busch"
+            ],
+            "correct_option": [
+                "miller"
+            ]
+        },
+        {
+            "type": "multiple_choice",
+            "text": "What is your favorite OS",
+            "options": [
+                "apple",
+                "linux",
+                "windows",
+                "Debain"
+            ],
+            "correct_option": [
+                "apple"
+            ]
+        }
+    ]
+}
