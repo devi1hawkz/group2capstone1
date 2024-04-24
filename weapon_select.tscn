@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://n1evkt6eyx8l"]
+
+[ext_resource type="Texture2D" uid="uid://cbhgxyju6x6h" path="res://Textures/wand.png" id="1_4lbll"]
+[ext_resource type="Script" path="res://weapon_select.gd" id="1_npop8"]
+[ext_resource type="Texture2D" uid="uid://dvmy4r6pi7htl" path="res://Textures/sword.png" id="2_j60px"]
+
+[node name="weapon_select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_npop8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 300.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 45
+text = "Select a weapon to use:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="selected" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 119.0
+offset_top = 205.0
+offset_right = 467.0
+offset_bottom = 241.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Selected weapon is: "
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 241.0
+offset_right = 359.0
+offset_bottom = 294.0
+text = "Start"
+
+[node name="meleeB" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 157.0
+offset_top = 63.0
+offset_right = 290.0
+offset_bottom = 207.0
+text = "Melee"
+icon = ExtResource("2_j60px")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="rangedB" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 300.0
+offset_top = 63.0
+offset_right = 441.0
+offset_bottom = 207.0
+text = "Ranged"
+icon = ExtResource("1_4lbll")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="meleeB" to="." method="_on_melee_b_pressed"]
+[connection signal="pressed" from="rangedB" to="." method="_on_ranged_b_pressed"]

@@ -6,7 +6,7 @@ func _ready():
 func _on_start_pressed():
 	if Global.file_name != null:
 		print(Global.file_name)
-		get_tree().change_scene_to_file("res://node_2d.tscn")
+		get_tree().change_scene_to_file("res://weapon_select.tscn")
 	else:
 		get_tree().paused=true
 		f_select.show()
