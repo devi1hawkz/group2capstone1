@@ -11,6 +11,6 @@ func _physics_process(delta):
 	#	queue_free()
 
 func _on_body_entered(body):
-	if body.has_method("damaged") and body.name == "Player":
+	if body.name == "Player":
+		Global.hp -= 2
 		queue_free()
-		body.damaged(Global.range_atk_dmg)

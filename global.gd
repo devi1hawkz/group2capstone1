@@ -10,6 +10,7 @@ var melee_atk_spd
 var melee_atk_dmg
 var ranged = true
 var melee = false
+var hp
 
 
 # Called when the node enters the scene tree for the first time.

@@ -21,7 +21,7 @@ func _ready():
 	timer.wait_time = frame_duration
 	add_child(timer)
 	timer.start()
-	shoot_towards_player()
+	$shootTimer.start()
 
 func _process(delta):
 	elapsed_time += delta
@@ -39,6 +39,7 @@ func shoot_towards_player():
 
 func _on_shoot_timer_timeout():
 	shoot_towards_player()
+	$shootTimer.start()
 
 func _on_Timer_timeout():
 	frame_index += 1
@@ -54,8 +55,6 @@ func _physics_process(_delta):
 		sprite.flip_h=false
 	elif moves.x < 0:
 		sprite.flip_h=true
-	if $shootTimer.time_left <= 0:
-		$shootTimer.start()
 	
 
 func damaged(dmg):

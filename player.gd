@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var move_spd = 70.0
-var hp = 100
+
 signal hp_zero
 #xp-variables
 var xp = 0
@@ -19,6 +19,7 @@ var xp_to_lvl = 0
 @onready var invisS = $Sprite2D2
 
 func _ready():
+	Global.hp = 100
 	set_bar(xp,calc_xp_cap())
 	%Label.text = str("Level: ", xp_lvl)
 	if Global.melee == true:
@@ -39,14 +40,14 @@ func _physics_process(delta):
 	move()
 	var overlap = %playerHurtbox.get_overlapping_bodies()
 	if overlap.size()>0:
-		hp -= 2 * overlap.size() * delta
-		%healthbar.value=hp
-		if hp <= 0.0:
+		Global.hp -= 2 * overlap.size() * delta
+		if Global.hp <= 0.0:
 			hp_zero.emit()
 	if(Global.melee==true):
 		invisS.look_at(get_global_mouse_position())
 		if %meleeTimer.time_left <= 0:
 			%meleeTimer.start()
+	%healthbar.value=Global.hp
 
 func _on_melee_timer_timeout():
 	slice()

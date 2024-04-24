@@ -21,3 +21,7 @@ func _on_ranged_b_pressed():
 	Global.melee = false
 	print("0")
 	select.text=str("Selected weapon is ranged")
+
+
+func _on_back_b_pressed():
+	get_tree().change_scene_to_file("res://menu.tscn")
