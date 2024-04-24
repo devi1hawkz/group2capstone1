@@ -8,6 +8,9 @@ extends Node2D
 @onready var d_screen = $Player/Camera2D/deathScreen
 @onready var player = $Player
 @onready var wolfMob
+@onready var draugrMob
+@onready var mageMob
+@onready var rand_num
 signal is_paused
 
 @onready var QuestionText = $Player/Camera2D/QuizPanel/Question_Name
@@ -138,9 +141,19 @@ func _ready():
 
 func spawner():
 	wolfMob = preload("res://enemy_1.tscn").instantiate()
+	draugrMob = preload("res://enemy_3.tscn").instantiate()
+	mageMob = preload("res://enemy_2.tscn").instantiate()
 	%PathFollow2D.progress_ratio = randf()
 	wolfMob.global_position = %PathFollow2D.global_position
-	add_child(wolfMob)
+	draugrMob.global_position = %PathFollow2D.global_position
+	mageMob.global_position = %PathFollow2D.global_position
+	rand_num = randf()
+	if rand_num <= 0.7:
+		add_child(wolfMob)
+	elif rand_num <= 0.9:
+		add_child(mageMob)
+	else:
+		add_child(draugrMob)
 
 func _on_spawn_timer_timeout():
 	spawner()

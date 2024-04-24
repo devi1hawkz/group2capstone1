@@ -49,6 +49,7 @@ scale = Vector2(2.80235, 2.84701)
 [node name="QuizPanel" type="Panel" parent="Player/Camera2D"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 z_index = 90
 anchors_preset = 8
 anchor_left = 0.5

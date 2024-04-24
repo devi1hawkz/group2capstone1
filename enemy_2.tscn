@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cafaw56qon2ro"]
+
+[ext_resource type="Script" path="res://enemy_2.gd" id="1_6wdgv"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pluul"]
+load_path = "res://.godot/imported/mage.png-77cf08eb1e7d54f5721999afde7a2eb2.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcag1"]
+size = Vector2(273.32, 405.228)
+
+[node name="Enemy_testSquare" type="CharacterBody2D"]
+scale = Vector2(0.1, 0.092)
+collision_layer = 4
+collision_mask = 5
+platform_on_leave = 2
+platform_floor_layers = 0
+script = ExtResource("1_6wdgv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 1.899)
+texture = SubResource("CompressedTexture2D_pluul")
+hframes = 3
+region_enabled = true
+region_rect = Rect2(-0.5, 4.5, 471.75, 182)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-15, 5.43478)
+scale = Vector2(0.91468, 0.885169)
+shape = SubResource("RectangleShape2D_mcag1")
+
+[node name="walkTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

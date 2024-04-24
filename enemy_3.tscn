@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw2crw4426kpg"]
+
+[ext_resource type="Script" path="res://enemy_3.gd" id="1_1mgfw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gtlfo"]
+load_path = "res://.godot/imported/draugr.png-11152644009f5cda408cc8319943f282.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcag1"]
+size = Vector2(229.588, 405.228)
+
+[node name="Enemy_testSquare" type="CharacterBody2D"]
+scale = Vector2(0.1, 0.092)
+collision_layer = 4
+collision_mask = 5
+platform_on_leave = 2
+platform_floor_layers = 0
+script = ExtResource("1_1mgfw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 1.899)
+texture = SubResource("CompressedTexture2D_gtlfo")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(-0.5, 4.5, 250.875, 202.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-25, -5.43478)
+scale = Vector2(0.91468, 0.885169)
+shape = SubResource("RectangleShape2D_mcag1")
+
+[node name="walkTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

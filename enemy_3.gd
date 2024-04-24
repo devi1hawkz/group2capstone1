@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var move_speed = 20.0
-@export var hp = 4
+@export var move_speed = 8.0
+@export var hp = 12
 @onready var main = get_node("/root/World")
 @onready var player = get_tree().get_first_node_in_group("player")
 @onready var expval = 2
@@ -9,13 +9,12 @@ extends CharacterBody2D
 @onready var sprite = $Sprite2D
 @onready var walk = get_node("walkTimer")
 var frame_index = 0
-var frame_count = 3
-var frame_duration = 0.25 #Animation speed (can be adjusted)
+var frame_count = 2
+var frame_duration = 0.35
 var timer
 var elapsed_time = 0.0
+var crystal_count = 3
 
-
-#NEW WALKING ANIMATION CODE
 func _ready():
 	timer = Timer.new()
 	timer.wait_time = frame_duration
@@ -33,7 +32,6 @@ func _on_Timer_timeout():
 	frame_index += 1
 	frame_index %= frame_count
 	sprite.frame = frame_index
-#NEW ANIMATION CODE ENDS HERE
 
 func _physics_process(_delta):
 	var dir = global_position.direction_to(player.global_position)
@@ -44,7 +42,6 @@ func _physics_process(_delta):
 		sprite.flip_h=false
 	elif moves.x < 0:
 		sprite.flip_h=true
-	#OLD VERSION OF WALKING ANIMATION
 	#if moves != Vector2.ZERO:
 	#	if walk.is_stopped():
 	#		if sprite.frame >= sprite.hframes-1:
@@ -59,8 +56,9 @@ func damaged(dmg):
 		death()
 
 func death():
-	var new_gem = expgem.instantiate()
-	new_gem.global_position = global_position
-	new_gem.xpmod = expval
-	main.call_deferred("add_child",new_gem)
-	queue_free()
+	for i in range(crystal_count):
+		var new_gem = expgem.instantiate()
+		new_gem.global_position = global_position + Vector2(10*i, 10*i)
+		new_gem.xpmod = expval
+		main.call_deferred("add_child",new_gem)
+		queue_free()
