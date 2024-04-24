@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://crlvherxqfwwx"]
 
-[ext_resource type="Texture2D" uid="uid://kic2hqy0jyre" path="res://Textures/gun.png" id="1_maxy8"]
 [ext_resource type="Script" path="res://watergun.gd" id="1_s74k1"]
-[ext_resource type="AudioStream" uid="uid://bwgbdubfmj3gq" path="res://Sounds/bubble-sound-43207.mp3" id="3_cd17q"]
+[ext_resource type="Texture2D" uid="uid://cbhgxyju6x6h" path="res://Textures/wand.png" id="2_t6fca"]
+[ext_resource type="AudioStream" uid="uid://p2t8xqrkvvre" path="res://Sounds/whoosh-fire.mp3" id="3_xbxjs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ds804"]
 radius = 1500.0
@@ -24,17 +24,18 @@ shape = SubResource("CircleShape2D_ds804")
 [node name="pivot" type="Marker2D" parent="."]
 
 [node name="watergun" type="Sprite2D" parent="pivot"]
-position = Vector2(211, -11)
-scale = Vector2(0.423145, 0.427599)
-texture = ExtResource("1_maxy8")
+position = Vector2(195, 2)
+scale = Vector2(1.94892, 1.84375)
+texture = ExtResource("2_t6fca")
 
 [node name="shootPoint" type="Marker2D" parent="pivot/watergun"]
 unique_name_in_owner = true
-position = Vector2(125.253, -11.6932)
+position = Vector2(45.3002, -3.88793)
 
 [node name="pop" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("3_cd17q")
+stream = ExtResource("3_xbxjs")
+volume_db = -38.205
 
 [node name="multishootTime" type="Timer" parent="."]
 unique_name_in_owner = true

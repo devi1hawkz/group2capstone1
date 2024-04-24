@@ -10,6 +10,7 @@ func _on_unpause_pressed():
 
 
 func _on_quit_pressed():
+	get_tree().paused = false
 	get_tree().quit()
 
 

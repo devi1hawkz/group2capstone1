@@ -42,6 +42,9 @@ func move():
 			walk.start()
 	velocity = moves.normalized()*move_spd
 	move_and_slide()
+	
+
+
 
 func _on_pickup_range_area_entered(area):
 	if area.is_in_group("loot"):

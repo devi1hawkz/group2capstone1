@@ -64,7 +64,7 @@ func _on_item_list_item_selected(index):
 			okButton.show()
 		else:
 			corrAns.text = "Incorrect. The correct answer is " + item.options[item.correct_option[0]]
-			correct==false
+			correct=false
 			okButton.show()
 	else:
 		ListItem.deselect_all()
@@ -72,7 +72,7 @@ func _on_item_list_item_selected(index):
 func _on_ok_button_pressed():
 	choice_made = false
 	if correct == true:
-		correct==false
+		correct=false
 		level_reward()
 	else:
 		q_menu.hide()
